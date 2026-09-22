@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key Mavens Summary</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Public+Sans:wght@400;500;600;700;800&family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap">
+<style>
+  :root{
+    --paper:#FBFAF6; --ink:#0B3D2E; --ink-soft:#4B5D56; --surface:#F1F5F3;
+    --surface-2:#E7EDEA; --line:#DEE6E2; --deep:#0B3D2E;
+    --accent:#8A6D2E; --accent-bright:#E3C25A; --accent-fill:#C9A227;
+    --on-deep:#FBFAF6; --on-deep-soft:#CFE3D9;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0C1F19; --ink:#F1F5F3; --ink-soft:#AFC3BC; --surface:#132D24;
+      --surface-2:#183527; --line:#23443682; --deep:#08160F;
+      --accent:#E3C25A; --accent-bright:#E9CD73; --accent-fill:#C9A227;
+      --on-deep:#F1F5F3; --on-deep-soft:#AFC3BC;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0C1F19; --ink:#F1F5F3; --ink-soft:#AFC3BC; --surface:#132D24;
+    --surface-2:#183527; --line:#23443682; --deep:#08160F;
+    --accent:#E3C25A; --accent-bright:#E9CD73; --accent-fill:#C9A227;
+    --on-deep:#F1F5F3; --on-deep-soft:#AFC3BC;
+  }
+
+  *{box-sizing:border-box}
+  html{color-scheme:light dark}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Public Sans',Arial,sans-serif;padding-inline:0}
+  #sheet{max-width:960px;margin:0 auto;padding-inline:20px;padding-block:0 48px}
+  #sheet.lang-ar{font-family:'Cairo','Public Sans',Arial,sans-serif}
+  #sheet.lang-ar h1,#sheet.lang-ar h2,#sheet.lang-ar .display{font-family:'Amiri','Cairo',serif}
+  #sheet.lang-en h1,#sheet.lang-en h2,#sheet.lang-en .display{font-family:'Libre Baskerville',Georgia,serif}
+
+  a{color:inherit}
+  img{max-width:100%}
+  .num{font-variant-numeric:tabular-nums}
+
+  header.bar{
+    position:sticky; top:0; z-index:20;
+    background:var(--deep); color:var(--on-deep);
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:14px 20px;
+    border-bottom:3px solid var(--accent-fill);
+  }
+  .brandrow{display:flex; align-items:center; gap:14px; min-width:0}
+  .brandrow img{height:40px; width:auto; display:block; flex:none}
+  .brandrow .name{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--on-deep-soft); font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+  .langtoggle{display:flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:3px; flex:none; background:rgba(255,255,255,.06)}
+  .langtoggle button{
+    appearance:none; border:0; background:transparent; color:var(--on-deep-soft);
+    font:inherit; font-weight:700; font-size:13px; letter-spacing:.03em;
+    padding:7px 16px; border-radius:999px; cursor:pointer;
+  }
+  .langtoggle button[aria-pressed="true"]{background:var(--accent-fill); color:var(--deep)}
+  .langtoggle button:focus-visible{outline:2px solid var(--accent-bright); outline-offset:2px}
+
+  .hero{padding-block:36px 8px; display:flex; flex-direction:column; gap:14px}
+  .eyebrow{display:flex; align-items:center; gap:12px}
+  .eyebrow .dash{width:32px; height:6px; background:var(--accent-fill); border-radius:3px; flex:none}
+  .eyebrow span{font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700}
+  h1{font-size:clamp(32px,6vw,52px); line-height:1.08; margin:0; text-wrap:balance}
+  .sub{font-size:clamp(17px,2.6vw,21px); color:var(--ink-soft); margin:0; font-style:italic}
+
+  .stakeCard{background:var(--deep); color:var(--on-deep); border-radius:16px; padding:22px 24px; display:flex; flex-direction:column; gap:14px; margin-top:8px; border:1px solid var(--accent-fill)}
+  .stakeCard .cap{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-bright); font-weight:700}
+  .stakeRow{display:flex; flex-wrap:wrap; gap:20px; align-items:flex-end}
+  .stakeField{display:flex; flex-direction:column; gap:6px; flex:1 1 200px}
+  .stakeField label{font-size:12.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--on-deep-soft); font-weight:700}
+  .stakeField input[type="number"]{font:inherit; font-size:20px; font-weight:700; color:var(--ink); background:var(--on-deep); border:1px solid transparent; border-radius:8px; padding:9px 10px; width:100%}
+  .stakeField input[type="range"]{width:100%; accent-color:var(--accent-bright); margin-top:10px}
+
+  .heroStats{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:8px}
+  .heroStat{background:var(--deep); color:var(--on-deep); border-radius:14px; padding:20px}
+  .heroStat .lbl{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--on-deep-soft); font-weight:700}
+  .heroStat .val{font-size:clamp(24px,4.2vw,34px); font-weight:700; color:var(--accent-bright); margin-top:6px}
+
+  .tagline{display:flex; align-items:flex-start; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-size:15px; color:var(--ink-soft); line-height:1.55}
+  .tagline .dot{width:8px; height:8px; border-radius:50%; background:var(--accent-fill); margin-top:8px; flex:none}
+
+  section{padding-block:28px; border-top:1px solid var(--line)}
+  section h2{font-size:clamp(21px,3.4vw,27px); margin:0 0 4px; text-wrap:balance}
+  section h3{font-size:16px; margin:20px 0 10px; color:var(--ink)}
+  .lede{color:var(--ink-soft); font-size:15px; margin:0 0 18px; max-width:64ch}
+
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+  @media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .tile{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px}
+  .tile .lbl{font-size:12.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); font-weight:700}
+  .tile .val{font-size:22px; font-weight:700; margin-top:6px}
+  .tile.pos .val{color:var(--accent)}
+
+  .chain{display:flex; align-items:stretch; gap:10px; flex-wrap:wrap}
+  .chain .step{flex:1 1 140px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:4px; min-width:140px}
+  .chain .step.total{background:var(--deep); border-color:var(--deep); color:var(--on-deep)}
+  .chain .step .lbl{font-size:12.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); font-weight:700}
+  .chain .step.total .lbl{color:var(--on-deep-soft)}
+  .chain .step .val{font-size:19px; font-weight:700}
+  .chain .step.total .val{color:var(--accent-bright)}
+  .chain .step .pct{font-size:12.5px; color:var(--ink-soft); font-weight:500}
+  .chain .step.total .pct{color:var(--on-deep-soft)}
+  .chain .op{display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:var(--accent); flex:0 0 auto; padding-inline:2px}
+
+  .streams{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  @media (max-width:720px){.streams{grid-template-columns:1fr}}
+  .stream{background:var(--deep); color:var(--on-deep); border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:6px}
+  .stream .lbl{font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-bright); font-weight:700}
+  .stream .val{font-size:24px; font-weight:700}
+  .stream .note{font-size:13.5px; color:var(--on-deep-soft); line-height:1.5}
+
+  .rangebar{display:flex; align-items:center; gap:12px; margin-top:6px}
+  .rangebar .track{flex:1; height:10px; border-radius:6px; background:linear-gradient(90deg,var(--surface-2),var(--accent-fill))}
+  .rangebar .a,.rangebar .b{font-size:14px; font-weight:700; white-space:nowrap}
+
+  .twrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px}
+  table.dtable{width:100%; border-collapse:collapse; font-size:13.5px; min-width:560px}
+  .dtable th{background:var(--deep); color:var(--on-deep); text-align:start; padding:9px 12px; font-size:11px; letter-spacing:.05em; text-transform:uppercase; font-weight:700; white-space:nowrap}
+  .dtable td{padding:8px 12px; border-bottom:1px solid var(--line); white-space:nowrap}
+  .dtable th.n, .dtable td.n{text-align:right}
+  .dtable tbody tr:nth-child(even) td{background:var(--surface)}
+  .dtable tr.total td{font-weight:700; background:var(--surface-2); border-top:2px solid var(--deep); border-bottom:none; color:var(--ink)}
+
+  ul.clean{margin:0; padding-inline-start:20px; display:flex; flex-direction:column; gap:8px; font-size:15px; color:var(--ink-soft); line-height:1.5}
+  ul.clean li::marker{color:var(--accent-fill)}
+
+  footer{padding-block:26px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:6px; font-size:13px; color:var(--ink-soft)}
+  footer .conf{font-weight:700; color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div id="sheet" class="lang-en" dir="ltr" lang="en">
+
+  <header class="bar">
+    <div class="brandrow">
+
+      <span class="name" data-i18n="brand">Key Mavens Group</span>
+    </div>
+    <a href="deck.html" style="color:#E3C25A;font-weight:700;font-size:13px;text-decoration:none;margin-inline-end:14px;white-space:nowrap">&#8594; View Full Deck</a><div class="langtoggle" role="group" aria-label="Language">
+      <button type="button" id="btn-en" aria-pressed="true">EN</button>
+      <button type="button" id="btn-ar" aria-pressed="false">AR &middot; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dash"></span><span data-i18n="eyebrow">Confidential Investor Summary</span></div>
+    <h1 class="display" data-i18n="h1">Share Sale &mdash; Company Value &amp; Growth Outlook</h1>
+    <p class="sub display" data-i18n="sub">Adjust the stake below &mdash; every figure on this page recalculates.</p>
+
+    <div class="stakeCard">
+      <div class="cap" data-i18n="stakeCap">Choose the Selling Interest</div>
+      <div class="stakeRow">
+        <div class="stakeField">
+          <label for="pctNum" data-i18n="stakePctLbl">Stake (%)</label>
+          <input type="number" id="pctNum" min="1" max="100" step="0.1" value="30">
+          <input type="range" id="pctRange" min="1" max="100" step="0.5" value="30" aria-labelledby="pctNum">
+        </div>
+        <div class="stakeField">
+          <label for="amtNum" data-i18n="stakeAmtLbl">or Amount (AED Millions)</label>
+          <input type="number" id="amtNum" min="4.976" max="497.56" step="0.5" value="149.268">
+        </div>
+      </div>
+    </div>
+
+    <div class="heroStats">
+      <div class="heroStat">
+        <div class="lbl" id="heroLbl1">30% Selling Interest</div>
+        <div class="val num" id="heroVal1">AED 149.268M</div>
+      </div>
+      <div class="heroStat">
+        <div class="lbl" data-i18n="hs2lbl">100% Company Value</div>
+        <div class="val num">AED 497.560M</div>
+      </div>
+    </div>
+    <div class="tagline"><span class="dot"></span><span data-i18n="tagline">Secondary sale &mdash; sellers receive full proceeds; AED 0 is raised for the company itself through this transaction, at any stake size.</span></div>
+  </div>
+
+  <section>
+    <h2 data-i18n="s1h">Deal at a Glance</h2>
+    <p class="lede" data-i18n="s1p">Every figure below recalculates from the stake you chose above &mdash; nothing here is a fixed, standalone estimate.</p>
+    <div class="grid">
+      <div class="tile"><div class="lbl" data-i18n="t1">Ownership Acquired</div><div class="val num" id="g_pct">30%</div></div>
+      <div class="tile"><div class="lbl" data-i18n="t2">Retained by Sellers</div><div class="val num" id="g_retained">70%</div></div>
+      <div class="tile"><div class="lbl" data-i18n="cg1">Purchase Price</div><div class="val num" id="g_price">AED 149.268M</div></div>
+      <div class="tile"><div class="lbl" data-i18n="cg2">Annual Income</div><div class="val num" id="g_income">AED 8.805M</div></div>
+      <div class="tile"><div class="lbl" data-i18n="cg5">Tangible Backing</div><div class="val num" id="g_backing">AED 95.268M</div></div>
+      <div class="tile"><div class="lbl" data-i18n="cg6">5-yr Stake Value (Full Pipeline)</div><div class="val num" id="g_path2">AED 273.168M</div></div>
+      <div class="tile"><div class="lbl" data-i18n="cg7">Capital Gain (5-yr)</div><div class="val num" id="g_gain">AED 123.900M</div></div>
+      <div class="tile"><div class="lbl" data-i18n="t3">Cash Yield</div><div class="val num">5.90%</div></div>
+      <div class="tile pos"><div class="lbl" data-i18n="t4">Capital Uplift</div><div class="val num">+83.0%</div></div>
+      <div class="tile pos"><div class="lbl" data-i18n="t5">5-yr Indicative IRR</div><div class="val num">&asymp;17.6%</div></div>
+      <div class="tile"><div class="lbl" data-i18n="t6">5-yr Money Multiple</div><div class="val num">2.12&times;</div></div>
+      <div class="tile"><div class="lbl" data-i18n="cg4">Payback (Income Only)</div><div class="val num">&asymp;17.0 yrs</div></div>
+      <div class="tile pos"><div class="lbl" data-i18n="cg4b">Payback (Income + Pipeline Profit)</div><div class="val num">&asymp;4.4 yrs</div></div>
+      <div class="tile"><div class="lbl" data-i18n="t7">Pipeline Margin</div><div class="val num">30.7%</div></div>
+      <div class="tile"><div class="lbl" data-i18n="t8">Price / Tangible Backing</div><div class="val num">1.57&times;</div></div>
+    </div>
+    <p class="lede" style="margin:14px 0 0" data-i18n="calcNote">Yield, uplift, IRR, multiple and payback are ratios &mdash; they are identical at every stake size. Only the AED amounts above change with the stake you choose.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="s2h">How the Price Is Built</h2>
+    <p class="lede" data-i18n="s2p">An asset-based approach &mdash; two components summed, then split by ownership. No discounted cash flow, no market multiple.</p>
+    <div class="chain">
+      <div class="step">
+        <div class="lbl" data-i18n="c1">Total Assets</div>
+        <div class="val num">317.560M</div>
+        <div class="pct num">63.83%</div>
+      </div>
+      <div class="op">+</div>
+      <div class="step">
+        <div class="lbl" data-i18n="c2">Key Mavens Value</div>
+        <div class="val num">180.000M</div>
+        <div class="pct num">36.17%</div>
+      </div>
+      <div class="op">=</div>
+      <div class="step total">
+        <div class="lbl" data-i18n="c3">Company Value</div>
+        <div class="val num">497.560M</div>
+        <div class="pct num">100%</div>
+      </div>
+      <div class="op" id="c_op">&times;30%</div>
+      <div class="step total">
+        <div class="lbl" id="c_lbl">30% Interest</div>
+        <div class="val num" id="c_val">149.268M</div>
+        <div class="pct num" data-i18n="c4b">&divide;100 &rarr; 4.976M / 1%</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="s7h">Asset Portfolio</h2>
+    <p class="lede" data-i18n="s7p">Six income-producing properties underlie the AED 317.560M asset value.</p>
+    <div class="twrap"><table class="dtable">
+      <thead><tr>
+        <th data-i18n="ah1">Asset</th><th class="n" data-i18n="ah2">Value (AED M)</th><th class="n" data-i18n="ah3">Revenue (AED M)</th><th class="n" data-i18n="ah4">Yield</th>
+      </tr></thead>
+      <tbody>
+        <tr><td data-i18n="a_1">Le Meryeme &mdash; The Villa Mall</td><td class="n num">110.680</td><td class="n num">10.500</td><td class="n num">9.49%</td></tr>
+        <tr><td data-i18n="a_2">Le Meryeme &mdash; Liwan Mall</td><td class="n num">106.710</td><td class="n num">11.000</td><td class="n num">10.31%</td></tr>
+        <tr><td data-i18n="a_3">Dubai Silicon Oasis Mall</td><td class="n num">31.320</td><td class="n num">3.000</td><td class="n num">9.58%</td></tr>
+        <tr><td data-i18n="a_4">Terraces Shop &mdash; Amo Caf&eacute;</td><td class="n num">20.850</td><td class="n num">1.850</td><td class="n num">8.87%</td></tr>
+        <tr><td data-i18n="a_6">Montage Shop &mdash; Carrefour</td><td class="n num">18.000</td><td class="n num">1.500</td><td class="n num">8.33%</td></tr>
+        <tr><td data-i18n="a_7">Duplex Montage</td><td class="n num">30.000</td><td class="n num">1.500</td><td class="n num">5.00%</td></tr>
+        <tr class="total"><td data-i18n="rowTotal">Total</td><td class="n num">317.560</td><td class="n num">29.350</td><td class="n num">9.24%</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2 id="s3_heading">What Your Interest Delivers</h2>
+    <p class="lede" data-i18n="s3p">Three separate return streams &mdash; income today, a share of pipeline profit, and the resulting growth in the stake's own value.</p>
+    <div class="streams">
+      <div class="stream">
+        <div class="lbl" data-i18n="r1lbl">Current Income</div>
+        <div class="val num" id="r1_val">AED 8.805M</div>
+        <div class="note" id="r1_note">Per annum &mdash; 30% of AED 29.350M portfolio revenue (5.90% yield on price).</div>
+      </div>
+      <div class="stream">
+        <div class="lbl" data-i18n="r2lbl">Pipeline Profit Share</div>
+        <div class="val num" id="r2_val">AED 123.900M</div>
+        <div class="note" id="r2_note">30% of AED 413.000M expected profit &mdash; 83.0% of the purchase price.</div>
+      </div>
+      <div class="stream">
+        <div class="lbl" data-i18n="r3lbl">Share-Value Growth</div>
+        <div class="val num" id="r3_val">&rarr; AED 273.168M</div>
+        <div class="note" data-i18n="r3note">Value of the selected stake once pipeline profit is fully realized.</div>
+      </div>
+    </div>
+    <h3 id="s3h2_heading">Combined Five-Year Return on AED 149.268M</h3>
+    <div class="twrap"><table class="dtable">
+      <thead><tr><th data-i18n="rh1">Return Component</th><th class="n" data-i18n="rh2">AED (M)</th><th class="n" data-i18n="rh3">% of Price</th></tr></thead>
+      <tbody>
+        <tr><td data-i18n="rr1">Cumulative income (5 years)</td><td class="n num" id="rr1_val">44.025</td><td class="n num">29.5%</td></tr>
+        <tr><td data-i18n="rr2">Capital uplift on the interest</td><td class="n num" id="rr2_val">123.900</td><td class="n num">83.0%</td></tr>
+        <tr class="total"><td data-i18n="rr3">Total gross return</td><td class="n num" id="rr3_val">167.925</td><td class="n num">112.5%</td></tr>
+        <tr class="total"><td data-i18n="rr4">Total value returned &middot; 2.12&times; multiple &middot; &asymp;17.6% 5-yr IRR</td><td class="n num" id="rr4_val">317.193</td><td class="n num">&mdash;</td></tr>
+      </tbody>
+    </table></div>
+    <p class="lede" style="margin:10px 0 0" id="irr_note">* The 5-yr IRR already includes the annual income &mdash; it is not added on top separately.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="s4h">Growth Pipeline</h2>
+    <p class="lede" data-i18n="s4p">Seven upcoming projects, already priced separately from today's valuation &mdash; 2.71&times; the current company value at a blended 30.7% margin.</p>
+    <div class="twrap"><table class="dtable">
+      <thead><tr>
+        <th data-i18n="ph1">Project</th><th class="n" data-i18n="ph2">Value (M)</th><th class="n" data-i18n="ph3">Profit (M)</th><th class="n" data-i18n="ph4">Margin</th><th class="n" data-i18n="ph5">Your Share (M)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td data-i18n="pj_1">Le Meryeme &mdash; Jaddaf</td><td class="n num">400.000</td><td class="n num">180.000</td><td class="n num">45.0%</td><td class="n num" id="pjs_1">54.000</td></tr>
+        <tr><td data-i18n="pj_2">Umm Shaif Mansion</td><td class="n num">200.000</td><td class="n num">85.000</td><td class="n num">42.5%</td><td class="n num" id="pjs_2">25.500</td></tr>
+        <tr><td data-i18n="pj_3">Silicon Mixed Use</td><td class="n num">173.000</td><td class="n num">58.000</td><td class="n num">33.5%</td><td class="n num" id="pjs_3">17.400</td></tr>
+        <tr><td data-i18n="pj_4">Dubai Island Residential</td><td class="n num">110.000</td><td class="n num">38.000</td><td class="n num">34.5%</td><td class="n num" id="pjs_4">11.400</td></tr>
+        <tr><td data-i18n="pj_5">Montage Waterfront</td><td class="n num">348.000</td><td class="n num">29.000</td><td class="n num">8.3%</td><td class="n num" id="pjs_5">8.700</td></tr>
+        <tr><td data-i18n="pj_6">Dubai South Residential</td><td class="n num">85.000</td><td class="n num">18.000</td><td class="n num">21.2%</td><td class="n num" id="pjs_6">5.400</td></tr>
+        <tr><td data-i18n="pj_7">Terraces Penthouse</td><td class="n num">30.000</td><td class="n num">5.000</td><td class="n num">16.7%</td><td class="n num" id="pjs_7">1.500</td></tr>
+        <tr class="total"><td data-i18n="rowTotal">Total</td><td class="n num">1,346.000</td><td class="n num">413.000</td><td class="n num">30.7%</td><td class="n num" id="pjs_tot">123.900</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tagline" style="margin-top:14px"><span class="dot"></span><span data-i18n="p5">Two projects &mdash; Le Meryeme-Jaddaf and Umm Shaif Mansion &mdash; account for 64.2% of the expected profit.</span></div>
+  </section>
+
+  <section>
+    <h2 data-i18n="s5h">Sensitivity &mdash; Partial Pipeline Delivery</h2>
+    <p class="lede" data-i18n="s5p">Company value scales with how much of the AED 413.000M pipeline profit is actually delivered; the value of your selected stake moves with it.</p>
+    <div class="rangebar">
+      <span class="a num">AED 497.560M</span>
+      <div class="track"></div>
+      <span class="b num">AED 910.560M</span>
+    </div>
+    <p class="lede" style="margin:6px 0 18px" data-i18n="s5cap">Company value range: today (0% delivered) &rarr; full pipeline realized (100%)</p>
+    <div class="twrap"><table class="dtable">
+      <thead><tr>
+        <th data-i18n="sh1">Pipeline Realized</th><th class="n" data-i18n="sh2">Profit (M)</th><th class="n" data-i18n="sh3">Company Value (M)</th><th class="n" id="sh4">Your Value (M)</th><th class="n" data-i18n="sh5">Capital Gain (M)</th><th class="n" data-i18n="sh6">Total Return</th><th class="n" data-i18n="sh7">5-yr IRR</th>
+      </tr></thead>
+      <tbody>
+        <tr><td data-i18n="sr1">25% delivered</td><td class="n num">103.250</td><td class="n num">600.810</td><td class="n num" id="sv_25">180.243</td><td class="n num" id="sg_25">30.975</td><td class="n num">+50.2%</td><td class="n num">&asymp;9.3%</td></tr>
+        <tr><td data-i18n="sr2">50% delivered</td><td class="n num">206.500</td><td class="n num">704.060</td><td class="n num" id="sv_50">211.218</td><td class="n num" id="sg_50">61.950</td><td class="n num">+71.0%</td><td class="n num">&asymp;12.4%</td></tr>
+        <tr><td data-i18n="sr3">75% delivered</td><td class="n num">309.750</td><td class="n num">807.310</td><td class="n num" id="sv_75">242.193</td><td class="n num" id="sg_75">92.925</td><td class="n num">+91.8%</td><td class="n num">&asymp;15.1%</td></tr>
+        <tr class="total"><td data-i18n="sr4">100% &mdash; base case</td><td class="n num">413.000</td><td class="n num">910.560</td><td class="n num" id="sv_100">273.168</td><td class="n num" id="sg_100">123.900</td><td class="n num">+112.5%</td><td class="n num">&asymp;17.6%</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tagline" style="margin-top:14px"><span class="dot"></span><span data-i18n="s5note">Even at zero pipeline delivery, the 5.90% cash yield still applies &mdash; downside protection from existing rental income.</span></div>
+  </section>
+
+  <section>
+    <h2 data-i18n="s6h">Basis &amp; Assumptions</h2>
+    <p class="lede" data-i18n="s6p">Every headline figure above traces back to one of the derivations below.</p>
+    <div class="twrap"><table class="dtable">
+      <thead><tr><th data-i18n="bh1">Figure</th><th data-i18n="bh2">Derivation (AED M)</th></tr></thead>
+      <tbody>
+        <tr><td data-i18n="b1">Total asset value</td><td class="num">Sum of 6 assets = 317.560</td></tr>
+        <tr><td data-i18n="b2">Company value</td><td class="num">317.560 + 180.000 (Key Mavens) = 497.560</td></tr>
+        <tr><td data-i18n="b3">Value per 1% ownership</td><td class="num">497.560 &divide; 100 = 4.976</td></tr>
+        <tr><td id="b4_lbl">Selected interest</td><td class="num" id="b4_val">497.560 &times; 0.300 = 149.268</td></tr>
+        <tr><td id="b5_lbl">Income to the selected interest</td><td class="num" id="b5_val">29.350 &times; 0.300 = 8.805</td></tr>
+        <tr><td data-i18n="b6">Cash yield on price</td><td class="num" data-i18n="b6val">Annual income &divide; price = 5.90% (constant at any stake size)</td></tr>
+        <tr><td data-i18n="b7">Pipeline profit</td><td class="num">Sum of 7 projects = 413.000</td></tr>
+        <tr><td data-i18n="b8">Path 2 company value</td><td class="num">497.560 + 413.000 = 910.560</td></tr>
+        <tr><td id="b9_lbl">Path 2 &middot; selected interest value</td><td class="num" id="b9_val">910.560 &times; 0.300 = 273.168</td></tr>
+        <tr><td id="b10_lbl">Capital uplift on the selected interest</td><td class="num" id="b10_val">273.168 &minus; 149.268 = 123.900 (+83.0% on price)</td></tr>
+        <tr><td data-i18n="b11">Payback &mdash; income only</td><td class="num" data-i18n="b11val">Price &divide; annual income = 17.0 years (constant at any stake size)</td></tr>
+        <tr class="total"><td data-i18n="b12">Payback &mdash; income + pipeline profit (pro-rata over 5 yrs)</td><td class="num" data-i18n="b12val">Price &divide; [(5-yr income + pipeline profit) &divide; 5] = 4.4 years (constant at any stake size)</td></tr>
+      </tbody>
+    </table></div>
+    <h3 data-i18n="s6h2">Assumptions</h3>
+    <ul class="clean">
+      <li data-i18n="a1">Management valuations as at 21 September 2026; no third-party appraisal is assumed.</li>
+      <li data-i18n="a2">Revenue is stated gross &mdash; no operating cost, financing cost or tax deductions.</li>
+      <li data-i18n="a3">Pipeline profit is undiscounted and shared pro rata to ownership.</li>
+      <li data-i18n="a4">Any capital required for future projects will be agreed before signing any new offers or projects &mdash; this transaction itself raises AED 0 for the company, and sellers receive 100% of the purchase consideration.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div data-i18n="foot1">Prepared 21 September 2026 &middot; All figures in AED &middot; Prepared for discussion purposes only &mdash; not an offer, investment advice or a prospectus.</div>
+    <div class="conf" data-i18n="foot2">Key Mavens Group &mdash; Confidential</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var T = {
+    en: {
+      brand:"Key Mavens Group",
+      eyebrow:"Confidential Investor Summary",
+      h1:"Share Sale — Company Value & Growth Outlook",
+      sub:"Adjust the stake below — every figure on this page recalculates.",
+      stakeCap:"Choose the Selling Interest", stakePctLbl:"Stake (%)", stakeAmtLbl:"or Amount (AED Millions)",
+      hs2lbl:"100% Company Value",
+      tagline:"Secondary sale — sellers receive full proceeds; AED 0 is raised for the company itself through this transaction, at any stake size.",
+      s1h:"Deal at a Glance",
+      s1p:"Every figure below recalculates from the stake you chose above — nothing here is a fixed, standalone estimate.",
+      t1:"Ownership Acquired", t2:"Retained by Sellers", t3:"Cash Yield", t4:"Capital Uplift",
+      t5:"5-yr Indicative IRR", t6:"5-yr Money Multiple", t7:"Pipeline Margin", t8:"Price / Tangible Backing",
+      cg1:"Purchase Price", cg2:"Annual Income", cg4:"Payback (Income Only)", cg4b:"Payback (Income + Pipeline Profit)",
+      cg5:"Tangible Backing", cg6:"5-yr Stake Value (Full Pipeline)", cg7:"Capital Gain (5-yr)",
+      calcNote:"Yield, uplift, IRR, multiple and payback are ratios — they are identical at every stake size. Only the AED amounts above change with the stake you choose.",
+      s2h:"How the Price Is Built",
+      s2p:"An asset-based approach — two components summed, then split by ownership. No discounted cash flow, no market multiple.",
+      c1:"Total Assets", c2:"Key Mavens Value", c3:"Company Value", c4b:"÷100 → 4.976M / 1%",
+      s7h:"Asset Portfolio",
+      s7p:"Six income-producing properties underlie the AED 317.560M asset value.",
+      ah1:"Asset", ah2:"Value (AED M)", ah3:"Revenue (AED M)", ah4:"Yield", rowTotal:"Total",
+      a_1:"Le Meryeme — The Villa Mall", a_2:"Le Meryeme — Liwan Mall", a_3:"Dubai Silicon Oasis Mall",
+      a_4:"Terraces Shop — Amo Café", a_6:"Montage Shop — Carrefour", a_7:"Duplex Montage",
+      s3p:"Three separate return streams — income today, a share of pipeline profit, and the resulting growth in the stake's own value.",
+      r1lbl:"Current Income", r2lbl:"Pipeline Profit Share", r3lbl:"Share-Value Growth",
+      r3note:"Value of the selected stake once pipeline profit is fully realized.",
+      rh1:"Return Component", rh2:"AED (M)", rh3:"% of Price",
+      rr1:"Cumulative income (5 years)", rr2:"Capital uplift on the interest",
+      rr3:"Total gross return", rr4:"Total value returned · 2.12× multiple · ≈17.6% 5-yr IRR",
+      s4h:"Growth Pipeline", s4p:"Seven upcoming projects, already priced separately from today's valuation — 2.71× the current company value at a blended 30.7% margin.",
+      ph1:"Project", ph2:"Value (M)", ph3:"Profit (M)", ph4:"Margin", ph5:"Your Share (M)",
+      pj_1:"Le Meryeme — Jaddaf", pj_2:"Umm Shaif Mansion", pj_3:"Silicon Mixed Use", pj_4:"Dubai Island Residential",
+      pj_5:"Montage Waterfront", pj_6:"Dubai South Residential", pj_7:"Terraces Penthouse",
+      p5:"Two projects — Le Meryeme-Jaddaf and Umm Shaif Mansion — account for 64.2% of the expected profit.",
+      s5h:"Sensitivity — Partial Pipeline Delivery",
+      s5p:"Company value scales with how much of the AED 413.000M pipeline profit is actually delivered; the value of your selected stake moves with it.",
+      s5cap:"Company value range: today (0% delivered) → full pipeline realized (100%)",
+      sh1:"Pipeline Realized", sh2:"Profit (M)", sh3:"Company Value (M)", sh5:"Capital Gain (M)", sh6:"Total Return", sh7:"5-yr IRR",
+      sr1:"25% delivered", sr2:"50% delivered", sr3:"75% delivered", sr4:"100% — base case",
+      s5note:"Even at zero pipeline delivery, the 5.90% cash yield still applies — downside protection from existing rental income.",
+      s6h:"Basis & Assumptions",
+      s6p:"Every headline figure above traces back to one of the derivations below.",
+      bh1:"Figure", bh2:"Derivation (AED M)",
+      b1:"Total asset value", b2:"Company value", b3:"Value per 1% ownership",
+      b6:"Cash yield on price", b6val:"Annual income ÷ price = 5.90% (constant at any stake size)",
+      b7:"Pipeline profit", b8:"Path 2 company value",
+      b11:"Payback — income only", b11val:"Price ÷ annual income = 17.0 years (constant at any stake size)",
+      b12:"Payback — income + pipeline profit (pro-rata over 5 yrs)", b12val:"Price ÷ [(5-yr income + pipeline profit) ÷ 5] = 4.4 years (constant at any stake size)",
+      s6h2:"Assumptions",
+      a1:"Management valuations as at 21 September 2026; no third-party appraisal is assumed.",
+      a2:"Revenue is stated gross — no operating cost, financing cost or tax deductions.",
+      a3:"Pipeline profit is undiscounted and shared pro rata to ownership.",
+      a4:"Any capital required for future projects will be agreed before signing any new offers or projects — this transaction itself raises AED 0 for the company, and sellers receive 100% of the purchase consideration.",
+      foot1:"Prepared 21 September 2026 · All figures in AED · Prepared for discussion purposes only — not an offer, investment advice or a prospectus.",
+      foot2:"Key Mavens Group — Confidential",
+      heroLbl1:function(p){ return p + "% Selling Interest"; },
+      s3heading:function(p){ return "What Your " + p + "% Interest Delivers"; },
+      s3h2heading:function(p, price){ return "Combined Five-Year Return on AED " + price; },
+      r1note:function(p, income){ return "Per annum — " + p + "% of AED 29.350M portfolio revenue (5.90% yield on price)."; },
+      r2note:function(p){ return p + "% of AED 413.000M expected profit — 83.0% of the purchase price."; },
+      irrNote:function(price, income, path2){ return "* The 5-yr IRR already includes the annual income — it is not added on top separately. The cash-flow stream is −" + price + " today, +" + income + " in each of years 1–5, plus the AED " + path2 + "M exit value in year 5; solving that stream for its discount rate gives ≈17.6%."; },
+      cLbl:function(p){ return p + "% Interest"; },
+      b4lbl:function(p){ return "The " + p + "% selling interest"; },
+      b5lbl:function(p){ return "Income to the " + p + "% interest"; },
+      b9lbl:function(p){ return "Path 2 · " + p + "% interest value"; },
+      b10lbl:function(p){ return "Capital uplift on the " + p + "% interest"; }
+    },
+    ar: {
+      brand:"Key Mavens Group",
+      eyebrow:"ملخص مستثمر سري",
+      h1:"بيع حصة — قيمة الشركة وآفاق النمو",
+      sub:"اضبط نسبة الحصة أدناه — وستُحدَّث كل الأرقام في هذه الصفحة تلقائيًا.",
+      stakeCap:"اختر نسبة الحصة المباعة", stakePctLbl:"الحصة (%)", stakeAmtLbl:"أو المبلغ (مليون درهم)",
+      hs2lbl:"إجمالي قيمة الشركة (100%)",
+      tagline:"بيع ثانوي — يحصل البائعون على كامل العائد؛ ولا يُضخّ عبر هذه الصفقة أي رأس مال جديد في الشركة (0 درهم)، عند أي حجم حصة.",
+      s1h:"الصفقة في لمحة",
+      s1p:"كل رقم أدناه يُعاد احتسابه من الحصة التي اخترتها أعلاه — ولا يوجد رقم تقديري ثابت هنا.",
+      t1:"الحصة المكتسبة", t2:"المحتفَظ بها لدى البائعين", t3:"العائد النقدي", t4:"نمو رأس المال",
+      t5:"العائد الداخلي التقديري (5 سنوات)", t6:"مضاعف رأس المال (5 سنوات)", t7:"هامش المشاريع القادمة", t8:"السعر إلى الضمان الملموس",
+      cg1:"سعر الشراء", cg2:"الدخل السنوي", cg4:"فترة الاسترداد (الدخل فقط)", cg4b:"فترة الاسترداد (الدخل + أرباح المشاريع)",
+      cg5:"الضمان الملموس", cg6:"قيمة الحصة بعد 5 سنوات (اكتمال المشاريع)", cg7:"المكسب الرأسمالي (5 سنوات)",
+      calcNote:"العائد والنمو والعائد الداخلي والمضاعف وفترة الاسترداد نسب ثابتة عند أي حجم حصة؛ والمبالغ بالدرهم أعلاه هي وحدها التي تتغير مع الحصة المختارة.",
+      s2h:"كيف يُحتسب السعر",
+      s2p:"نهج قائم على الأصول — يُجمع عنصران ثم تُحتسب حصة الملكية منهما، دون خصم للتدفقات النقدية أو مضاعف سوقي.",
+      c1:"إجمالي الأصول", c2:"قيمة Key Mavens", c3:"قيمة الشركة", c4b:"÷100 ← 4.976 مليون لكل 1%",
+      s7h:"محفظة الأصول",
+      s7p:"ستة عقارات مُدرّة للدخل تشكل أساس قيمة الأصول البالغة 317.560 مليون درهم.",
+      ah1:"الأصل", ah2:"القيمة (مليون درهم)", ah3:"الإيرادات (مليون درهم)", ah4:"العائد", rowTotal:"الإجمالي",
+      a_1:"لو ميريم - فيلا مول", a_2:"لو ميريم - ليوان مول", a_3:"مول واحة دبي للسيليكون",
+      a_4:"متجر تراسيس - أمو كافيه", a_6:"متجر مونتاج - كارفور", a_7:"دوبلكس مونتاج",
+      s3p:"ثلاثة مصادر عائد منفصلة — دخل حالي، وحصة من أرباح المشاريع القادمة، والنمو الناتج في قيمة الحصة نفسها.",
+      r1lbl:"الدخل الحالي", r2lbl:"حصة أرباح المشاريع القادمة", r3lbl:"نمو قيمة الحصة",
+      r3note:"قيمة الحصة المختارة عند تحقق كامل أرباح المشاريع القادمة.",
+      rh1:"عنصر العائد", rh2:"القيمة (مليون درهم)", rh3:"النسبة من السعر",
+      rr1:"الدخل التراكمي (5 سنوات)", rr2:"نمو رأس المال على الحصة",
+      rr3:"إجمالي العائد الإجمالي", rr4:"إجمالي القيمة المُسترَدة · مضاعف 2.12× · عائد داخلي تقديري ≈17.6%",
+      s4h:"مشاريع النمو القادمة", s4p:"سبعة مشاريع قادمة، مُسعَّرة بشكل منفصل عن تقييم اليوم — بقيمة تعادل 2.71× قيمة الشركة الحالية وبهامش مدمج 30.7%.",
+      ph1:"المشروع", ph2:"القيمة (مليون)", ph3:"الربح (مليون)", ph4:"الهامش", ph5:"حصتك (مليون)",
+      pj_1:"لو ميريم - الجداف", pj_2:"قصر أم شيف", pj_3:"المشروع متعدد الاستخدامات - السيليكون", pj_4:"المشروع السكني - جزيرة دبي",
+      pj_5:"مونتاج ووترفرونت", pj_6:"المشروع السكني - دبي الجنوب", pj_7:"بنتهاوس تراسيس",
+      p5:"يمثل مشروعان — لو ميريم-الجداف وقصر أم شيف — 64.2% من الأرباح المتوقعة.",
+      s5h:"تحليل الحساسية — التحقق الجزئي للمشاريع القادمة",
+      s5p:"تتحرك قيمة الشركة مع نسبة ما يتحقق فعليًا من أرباح المشاريع القادمة البالغة 413.000 مليون درهم، وتتحرك قيمة حصتك معها.",
+      s5cap:"نطاق قيمة الشركة: اليوم (0% تحقق) ← اكتمال جميع المشاريع (100%)",
+      sh1:"نسبة إنجاز المشاريع", sh2:"الربح (مليون)", sh3:"قيمة الشركة (مليون)", sh5:"المكسب الرأسمالي (مليون)", sh6:"العائد الإجمالي", sh7:"العائد الداخلي (5 سنوات)",
+      sr1:"تحقق 25%", sr2:"تحقق 50%", sr3:"تحقق 75%", sr4:"100% — الحالة الأساسية",
+      s5note:"حتى مع عدم تحقق أي من أرباح المشاريع القادمة، يبقى العائد النقدي 5.90% قائمًا — وهو ما يوفر حماية من جانب الدخل الإيجاري الحالي.",
+      s6h:"الأساس والافتراضات",
+      s6p:"كل رقم رئيسي أعلاه يعود إلى إحدى طرق الاحتساب أدناه.",
+      bh1:"البند", bh2:"طريقة الاحتساب (مليون درهم)",
+      b1:"إجمالي قيمة الأصول", b2:"قيمة الشركة", b3:"القيمة لكل 1% من الملكية",
+      b6:"العائد النقدي على السعر", b6val:"الدخل السنوي ÷ السعر = 5.90% (ثابت عند أي حجم حصة)",
+      b7:"أرباح المشاريع القادمة", b8:"قيمة الشركة (المسار 2)",
+      b11:"فترة الاسترداد — الدخل فقط", b11val:"السعر ÷ الدخل السنوي = 17.0 سنة (ثابت عند أي حجم حصة)",
+      b12:"فترة الاسترداد — الدخل + أرباح المشاريع (موزعة على 5 سنوات)", b12val:"السعر ÷ [(دخل 5 سنوات + أرباح المشاريع) ÷ 5] = 4.4 سنوات (ثابت عند أي حجم حصة)",
+      s6h2:"الافتراضات",
+      a1:"تقييمات الإدارة كما بتاريخ 21 سبتمبر 2026؛ دون افتراض أي تقييم من طرف ثالث.",
+      a2:"الإيرادات مذكورة كإجمالي — دون خصم تكاليف التشغيل أو التمويل أو الضرائب.",
+      a3:"أرباح المشاريع القادمة غير مخصومة وتُوزَّع بالتناسب مع نسبة الملكية.",
+      a4:"سيتم الاتفاق على أي رأس مال يلزم للمشاريع المستقبلية قبل توقيع أي عروض أو مشاريع جديدة — وهذه الصفقة نفسها لا تضخ أي رأس مال في الشركة (0 درهم)، إذ يحصل البائعون على كامل مقابل البيع.",
+      foot1:"أُعد بتاريخ 21 سبتمبر 2026 · جميع الأرقام بالدرهم الإماراتي · أُعد لأغراض المناقشة فقط — ولا يشكل عرضًا أو نصيحة استثمارية أو نشرة إصدار.",
+      foot2:"Key Mavens Group — سري",
+      heroLbl1:function(p){ return "الحصة المباعة (" + p + "%)"; },
+      s3heading:function(p){ return "ما تحققه حصتك (" + p + "%)"; },
+      s3h2heading:function(p, price){ return "العائد الإجمالي على مدى 5 سنوات على مبلغ " + price + " مليون درهم"; },
+      r1note:function(p, income){ return "سنويًا — " + p + "% من إيرادات المحفظة البالغة 29.350 مليون درهم (عائد 5.90% على السعر)."; },
+      r2note:function(p){ return p + "% من الأرباح المتوقعة البالغة 413.000 مليون درهم — 83.0% من سعر الشراء."; },
+      irrNote:function(price, income, path2){ return "* يتضمن العائد الداخلي لخمس سنوات الدخل السنوي بالفعل — وهو غير مُضاف فوق عائد منفصل. تدفق نقدي يبدأ بـ" + price + "- اليوم، ثم +" + income + " في كل من السنوات 1 إلى 5، بالإضافة إلى قيمة خروج قدرها " + path2 + " مليون درهم في السنة الخامسة؛ وحل هذا التدفق لمعدل الخصم يعطي عائدًا داخليًا تقديريًا ≈17.6%."; },
+      cLbl:function(p){ return "حصة الـ" + p + "%"; },
+      b4lbl:function(p){ return "الحصة المباعة (" + p + "%)"; },
+      b5lbl:function(p){ return "الدخل العائد لحصة الـ" + p + "%"; },
+      b9lbl:function(p){ return "قيمة حصة الـ" + p + "% (المسار 2)"; },
+      b10lbl:function(p){ return "نمو رأس المال لحصة الـ" + p + "%"; }
+    }
+  };
+
+  var sheet = document.getElementById('sheet');
+  var btnEn = document.getElementById('btn-en');
+  var btnAr = document.getElementById('btn-ar');
+  var lang = 'en';
+
+  function applyLang(newLang){
+    lang = newLang;
+    var dict = T[lang] || T.en;
+    var nodes = sheet.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < nodes.length; i++){
+      var key = nodes[i].getAttribute('data-i18n');
+      if (typeof dict[key] === 'string') nodes[i].textContent = dict[key];
+    }
+    sheet.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    sheet.setAttribute('lang', lang);
+    sheet.classList.toggle('lang-ar', lang === 'ar');
+    sheet.classList.toggle('lang-en', lang !== 'ar');
+    btnEn.setAttribute('aria-pressed', String(lang !== 'ar'));
+    btnAr.setAttribute('aria-pressed', String(lang === 'ar'));
+    render();
+  }
+
+  btnEn.addEventListener('click', function(){ applyLang('en'); });
+  btnAr.addEventListener('click', function(){ applyLang('ar'); });
+
+  // Per-1%-of-company constants
+  var PRICE_PER_PCT = 4.9756;   // AED 497.560M / 100
+  var INCOME_PER_PCT = 0.2935;  // AED 29.350M / 100
+  var BACKING_PER_PCT = 3.1756; // AED 317.560M / 100
+  var PATH2_PER_PCT = 9.1056;   // AED 910.560M / 100
+  var PROJECTS = [
+    {id:'1', profit:180.000}, {id:'2', profit:85.000}, {id:'3', profit:58.000},
+    {id:'4', profit:38.000}, {id:'5', profit:29.000}, {id:'6', profit:18.000}, {id:'7', profit:5.000}
+  ];
+
+  var pctRange = document.getElementById('pctRange');
+  var pctNum = document.getElementById('pctNum');
+  var amtNum = document.getElementById('amtNum');
+  var pct = 30;
+
+  function f3(n){ return n.toFixed(3); }
+  function fAED(n){ return 'AED ' + f3(n) + 'M'; }
+  function setText(id, text){ var el = document.getElementById(id); if (el) el.textContent = text; }
+
+  function render(){
+    var dict = T[lang] || T.en;
+    var price = pct * PRICE_PER_PCT;
+    var income = pct * INCOME_PER_PCT;
+    var backing = pct * BACKING_PER_PCT;
+    var path2 = pct * PATH2_PER_PCT;
+    var gain = path2 - price;
+    var income5 = income * 5;
+    var totalGross = income5 + gain;
+    var totalReturned = income5 + path2;
+    var retained = 100 - pct;
+
+    setText('heroLbl1', dict.heroLbl1(Math.round(pct * 10) / 10));
+    setText('heroVal1', fAED(price));
+
+    setText('g_pct', (Math.round(pct * 10) / 10) + '%');
+    setText('g_retained', (Math.round(retained * 10) / 10) + '%');
+    setText('g_price', fAED(price));
+    setText('g_income', fAED(income));
+    setText('g_backing', fAED(backing));
+    setText('g_path2', fAED(path2));
+    setText('g_gain', fAED(gain));
+
+    var pctRounded = Math.round(pct * 10) / 10;
+    document.getElementById('c_op').textContent = '×' + pctRounded + '%';
+    document.getElementById('c_lbl').textContent = dict.cLbl(pctRounded);
+    document.getElementById('c_val').textContent = f3(price) + 'M';
+
+    document.getElementById('s3_heading').textContent = dict.s3heading(pctRounded);
+    document.getElementById('s3h2_heading').textContent = dict.s3h2heading(pctRounded, f3(price));
+    setText('r1_val', fAED(income));
+    setText('r1_note', dict.r1note(pctRounded, f3(income)));
+    setText('r2_val', fAED(gain));
+    setText('r2_note', dict.r2note(pctRounded));
+    setText('r3_val', '→ ' + fAED(path2));
+    setText('rr1_val', f3(income5));
+    setText('rr2_val', f3(gain));
+    setText('rr3_val', f3(totalGross));
+    setText('rr4_val', f3(totalReturned));
+    setText('irr_note', dict.irrNote(f3(price), f3(income), f3(path2)));
+
+    var shareTotal = 0;
+    for (var i = 0; i < PROJECTS.length; i++){
+      var share = PROJECTS[i].profit * pct / 100;
+      shareTotal += share;
+      setText('pjs_' + PROJECTS[i].id, f3(share));
+    }
+    setText('pjs_tot', f3(shareTotal));
+
+    var levels = [25, 50, 75, 100];
+    for (var j = 0; j < levels.length; j++){
+      var d = levels[j];
+      var companyValueAtD = 497.560 + 413.000 * d / 100;
+      var yourValueAtD = companyValueAtD * pct / 100;
+      var gainAtD = yourValueAtD - price;
+      setText('sv_' + d, f3(yourValueAtD));
+      setText('sg_' + d, f3(gainAtD));
+    }
+    document.getElementById('sh4').textContent = (lang === 'ar' ? ('قيمة حصتك (' + pctRounded + '%، مليون)') : (pctRounded + '% Value (M)'));
+
+    setText('b4_lbl', dict.b4lbl(pctRounded));
+    setText('b4_val', '497.560 × ' + (pct/100).toFixed(3) + ' = ' + f3(price));
+    setText('b5_lbl', dict.b5lbl(pctRounded));
+    setText('b5_val', '29.350 × ' + (pct/100).toFixed(3) + ' = ' + f3(income));
+    setText('b9_lbl', dict.b9lbl(pctRounded));
+    setText('b9_val', '910.560 × ' + (pct/100).toFixed(3) + ' = ' + f3(path2));
+    setText('b10_lbl', dict.b10lbl(pctRounded));
+    setText('b10_val', f3(path2) + ' − ' + f3(price) + ' = ' + f3(gain) + ' (+83.0% on price)');
+  }
+
+  function setPct(p){
+    if (isNaN(p)) return;
+    if (p < 1) p = 1;
+    if (p > 100) p = 100;
+    pct = p;
+    pctRange.value = p;
+    pctNum.value = Math.round(p * 100) / 100;
+    amtNum.value = (p * PRICE_PER_PCT).toFixed(3);
+    render();
+  }
+
+  function setAmt(a){
+    if (isNaN(a)) return;
+    setPct(a / PRICE_PER_PCT);
+  }
+
+  pctRange.addEventListener('input', function(){ setPct(parseFloat(this.value)); });
+  pctNum.addEventListener('input', function(){ setPct(parseFloat(this.value)); });
+  amtNum.addEventListener('input', function(){ setAmt(parseFloat(this.value)); });
+
+  applyLang('en');
+  setPct(30);
+})();
+</script>
+</body>
+</html>
